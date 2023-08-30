@@ -76,6 +76,7 @@ end
 
 # Traverse the project files
 Dir.glob("#{project_path}/**/*").each do |file|
+  # Note: If you want to check other types of files, just change the following assertion.
   if File.file?(file) && File.extname(file) == '.swift'
     search_typos(file, speller, learned_words, swift_words)
   end
