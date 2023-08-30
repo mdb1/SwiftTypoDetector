@@ -19,6 +19,10 @@ The setup script will:
   * Replace `path/to/your-project` with the real path of your project.
   * _Note_: If you get a `permission denied error`: `chmod +x ./find_typos.rb`
 
+Aside from checking against the US dictionary, the script will also check against the words in this list:
+
+- [SwiftGenericWords](./swift_generic_words.txt)
+
 ### Learning words
 
 If you want to provide a set of custom words:

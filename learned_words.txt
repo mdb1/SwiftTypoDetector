@@ -2,121 +2,46 @@
 ## Generic Words
 
 api
-asc
-async
 auth
 authenticator
-autoreverses
 
 backend
-bezier
-bool
 
-cancellable
-cancelled
-cancelling
 ci
 cn
-codable
-config
 cta
 
-debounce
-decodable
-dequeue
-dequeued
-dequeues
-dequeuing
-desc
 dev
-discardable
 
-encodable
-endif
-enum
 env
 
-formatter
 formatters
-func
 
-geolocation
 github
-grayscale
-
-hashable
-http
-https
 
 idx
-init
-initializer
-inout
-iterable
 
 json
 
-keychain
-keypaths
-
 lat
-let
-lhs
 lon
-lowercased
 
-mmm
-namespaces
-navigatable
-nsurl
-
-onboarding
 optionals
-ordinality
 
 parsable
-passthrough
-plist
 prod
 px
 
-rect
-resizable
-responder
-rhs
 runtime
 
 sdk
 stg
-struct
-subheadline
-substring
-subview
-subviews
-superview
 sut
-swift
+swiftformat
 swiftlint
 
-tappable
-teardown
-typealias
-
 ui
-unregister
-uppercased
-url
 usd
-utc
-utf
-
-var
-vc
-
-webpage
-xc
-xcode
-xct
 
 ## Project Specific:
 
