@@ -24,7 +24,8 @@ The setup script will:
 If you want to provide a set of custom words:
 
 1. Create a file named `learned_words.txt` in the root of the project you want to find typos on.
-2. Populate the `.txt` file with one learned word per line.
+2. Populate the `.txt` file with one learned word per line (lowercased).
+  * The script will lowercase the words before matching them to the ones in the `.txt` file.
 
 You could copy and paste the [one in this project](./learned_words.txt):
 

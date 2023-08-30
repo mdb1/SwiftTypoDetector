@@ -2,74 +2,60 @@
 ## Generic Words
 
 api
-ASC
-Async
+asc
 async
 auth
-Authenticator
 authenticator
 autoreverses
 
 backend
-Bezier
-Bool
+bezier
+bool
 
-Cancellable
 cancellable
 cancelled
 cancelling
 ci
-CN
-Codable
-Config
+cn
+codable
 config
-CTA
-Cta
+cta
 
 debounce
-Decodable
+decodable
 dequeue
 dequeued
-Dequeues
-Dequeuing
+dequeues
 dequeuing
-DESC
-DEV
+desc
+dev
 discardable
 
-Encodable
+encodable
 endif
-Enum
 enum
 env
 
-Formatter
 formatter
-Formatters
+formatters
 func
 
 geolocation
 github
-Grayscale
 grayscale
 
-Hashable
+hashable
 http
 https
 
 idx
-Init
 init
-Initializer
 initializer
 inout
-Iterable
+iterable
 
-JSON
-Json
 json
 
-Keychain
 keychain
 keypaths
 
@@ -79,55 +65,48 @@ lhs
 lon
 lowercased
 
-MMM
-Namespaces
+mmm
+namespaces
 navigatable
-NSURL
+nsurl
 
 onboarding
 optionals
 ordinality
 
-Parsable
-Passthrough
+parsable
+passthrough
 plist
-PROD
+prod
 px
 
-Rect
 rect
-Resizable
 resizable
-Responder
+responder
 rhs
 runtime
 
-SDK
+sdk
 stg
 struct
 subheadline
-Substring
-Subview
-Subviews
+substring
+subview
 subviews
 superview
 sut
 swift
 swiftlint
 
-Tappable
-Teardown
-Typealias
+tappable
+teardown
 typealias
 
-UI
 ui
-Unregister
 unregister
 uppercased
-Url
 url
-USD
+usd
 utc
 utf
 
@@ -135,9 +114,10 @@ var
 vc
 
 webpage
-XC
-Xcode
-XCT
+xc
+xcode
+xct
+
 ## Project Specific:
 
-Manu
+manu

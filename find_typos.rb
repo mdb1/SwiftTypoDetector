@@ -15,11 +15,6 @@ if File.exists?(config_path)
   end
 end
 
-# Check if a word is a typo
-def typo?(word, speller, learned_words)
-  !(speller.correct?(word) || learned_words.include?(word))
-end
-
 def looks_like_regex_or_special_format?(line)
   special_chars = ['[', ']', '{', '}', '+', '*', '\\']
   special_chars_count = special_chars.map { |char| line.count(char) }.sum
@@ -49,14 +44,14 @@ def search_typos(file_path, speller, learned_words)
     words = line.gsub(/[^a-zA-Z\s’']/, ' ').split
 
     words.each do |word|
-      next if speller.correct?(word) || learned_words.include?(word)
+      next if speller.correct?(word) || learned_words.include?(word.downcase)
 
       # Handle possessive and contractions
       root_word = word.gsub(/'s\b/, '')  # Remove 's for possessive singular
       root_word = root_word.gsub(/'\b/, '')  # Remove ' for possessive plural
       if root_word.include?("'")  # likely a contraction
         parts = root_word.split("'")
-        next if parts.all? { |part| speller.correct?(part) || learned_words.include?(part) }
+        next if parts.all? { |part| speller.correct?(part) || learned_words.include?(part.downcase) }
       end
       puts "#{file_path}:\nline #{line_num + 1}: #{word}. Typo detected: \"#{word}\""
       # Increment typo count whenever you find a typo

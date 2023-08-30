@@ -53,7 +53,11 @@ final_content+=$(sort_and_write)
 # Remove double whitespace lines
 final_content=$(echo -e "$final_content" | awk 'NF > 0 {blank = 0} NF == 0 {++blank} blank < 2')
 
-echo -n "$final_content" > "$input_file"
+{
+  echo -n "$final_content"
+  echo ""
+  echo ""
+} > "$input_file"
 
 rm -f "$temp_file"
 
