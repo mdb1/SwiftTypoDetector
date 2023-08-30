@@ -10,7 +10,7 @@ project_path = ARGV[0]
 learned_words_path = File.join(project_path, 'learned_words.txt')
 learned_words = []
 if File.exists?(learned_words_path)
-  File.readlines(learned_words).each do |line|
+  File.readlines(learned_words_path).each do |line|
     learned_words << line.strip
   end
 end
