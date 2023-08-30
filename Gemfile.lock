@@ -1,0 +1,16 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffi (1.15.5)
+
+PLATFORMS
+  arm64-darwin-22
+
+DEPENDENCIES
+  ffi
+
+RUBY VERSION
+   ruby 3.1.3p185
+
+BUNDLED WITH
+   2.4.17
