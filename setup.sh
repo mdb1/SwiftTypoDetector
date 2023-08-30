@@ -15,6 +15,8 @@ fi
 # Install Ruby gems
 echo "Installing Ruby gems..."
 bundle install
+gem install ffi
+gem install ffi-aspell
 
 echo "Setup completed."
 
