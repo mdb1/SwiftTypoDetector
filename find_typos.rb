@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: UTF-8
 
 require 'ffi/aspell'
 
@@ -37,11 +38,15 @@ def contains_many_numbers?(line, threshold = 7)
   return num_count >= threshold
 end
 
+# New global variables to keep track of unlearned words and their counts
 $typo_count = 0
+$unlearned_words = {}
+$unlearned_words_count = Hash.new(0)
 
 # Search for typos in a file
 def search_typos(file_path, speller, learned_words, swift_words)
-  File.foreach(file_path).with_index do |line, line_num|
+  File.foreach(file_path, encoding: "UTF-8").with_index do |line, line_num|
+    line = line.scrub
     # Remove single-line URLs from the line
     next if line.include?("http://")
     next if line.include?("https://")
@@ -76,6 +81,9 @@ def search_typos(file_path, speller, learned_words, swift_words)
       end
       puts "#{file_path}:\nline #{line_num + 1}: #{word}. Typo detected: \"#{word}\""
       # Increment typo count whenever you find a typo
+      # Update global variables for unlearned words
+      $unlearned_words[word.downcase] = true
+      $unlearned_words_count[word.downcase] += 1
       $typo_count += 1
     end
   end
@@ -94,4 +102,39 @@ Dir.glob("#{project_path}/**/*").each do |file|
   end
 end
 
+puts ""
+puts "============="
 puts "Total typos found: #{$typo_count}"
+puts "============="
+puts ""
+
+if $typo_count > 0
+  # Generate unlearned_words.txt in the project root directory
+  unlearned_words_path = File.join(project_path, 'unlearned_words.txt')
+  File.open(unlearned_words_path, "w") do |file|
+    $unlearned_words.keys.sort.each do |word|
+      file.puts(word)
+    end
+  end
+
+  # Generate unlearned_words_count.txt in the project root directory
+  unlearned_words_count_path = File.join(project_path, 'unlearned_words_count.txt')
+  File.open(unlearned_words_count_path, "w") do |file|
+    $unlearned_words_count.group_by { |_, v| v }.sort.reverse.each do |count, words|
+      file.puts("## #{count} Appearances")
+      words.map { |word, _| word }.sort.each { |word| file.puts(word) }
+    end
+  end
+
+  puts "Two files have been created in the root of your project path (#{project_path}):"
+  puts "1. unlearned_words.txt - This file contains all the unique typos, sorted alphabetically."
+  puts "2. unlearned_words_count.txt - This file contains the typos under their frequencies, sorted by frequency."
+  puts "Remember to delete these files before pushing to the repository."
+else
+  # Delete the files if they exist
+  [File.join(project_path, 'unlearned_words.txt'), File.join(project_path, 'unlearned_words_count.txt')].each do |file_path|
+    File.delete(file_path) if File.exist?(file_path)
+  end
+
+  puts "No typos were found."
+end
