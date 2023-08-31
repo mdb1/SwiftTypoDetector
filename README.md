@@ -2,6 +2,8 @@
 
 An easy to install, easy to use, swift typo detector for your console.
 
+[BlogPost](https://www.manu.show/2023-08-30-swift-typo-detector/)
+
 ## Installation
 
 * Run the setup script: `./setup.sh`
@@ -27,7 +29,9 @@ Aside from checking against the US dictionary, the script will also check agains
 
 If you want to provide a set of custom words:
 
-1. Create a file named `learned_words.txt` in the root of the project you want to find typos on.
+1. Create a file named `learned_words.txt` inside the project you want to find typos on.
+  * _Note 1_: It won't matter if it's in the root or not.
+  * _Note 2_: You could even have multiple `learned_words.txt` and the script will combine them all.
 2. Populate the `.txt` file with one learned word per line (lowercased).
   * The script will lowercase the words before matching them to the ones in the `.txt` file.
 
@@ -40,4 +44,4 @@ You could copy and paste the [one in this project](./learned_words.txt):
 If you want to sort the sections of the `learned_word` file:
 
 * Run the sort script: `./sort_txt_sections.sh path/to/your-project/learned_words.txt`
-  * Replace `path/to/your-project/` with the real path of your project.
+  * Replace `path/to/your-project/learned_words.txt` with the real path of your `txt` file.

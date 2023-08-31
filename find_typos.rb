@@ -5,13 +5,15 @@ require 'ffi/aspell'
 # Initialize Aspell and dictionary
 speller = FFI::Aspell::Speller.new('en_US')
 
-# Learn new words from config file
-project_path = ARGV[0]
-learned_words_path = File.join(project_path, 'learned_words.txt')
+# Learn new words from all the `learned_words.txt` files inside the path
 learned_words = []
-if File.exists?(learned_words_path)
-  File.readlines(learned_words_path).each do |line|
-    learned_words << line.strip
+project_path = ARGV[0]
+# Given your project path variable 'project_path'
+Dir.glob(File.join(project_path, '**', 'learned_words.txt')) do |path|
+  if File.exists?(path)
+    File.readlines(path).each do |line|
+      learned_words << line.strip
+    end
   end
 end
 
