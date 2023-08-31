@@ -1,28 +1,47 @@
 
 ## Generic Words
 
+adhoc
+affine
 asc
+ascii
+associatedtype
 async
+autocapitalization
+autoclosure
+autoconnect
+autocorrection
 autoreverses
+autoresizing
+autoupdating
 
 bezier
 bool
+boolean
 
 cancellable
+charset
 checkmark
 ci
+ciqr
 cn
 codable
 
+debounce
 decodable
+deinit
 dequeue
 desc
+detent
+detents
 discardable
 
 encodable
 endif
+english
 enum
 
+flickr
 formatter
 func
 
@@ -30,53 +49,92 @@ geolocation
 grayscale
 
 hashable
+hasher
+hoc
 http
 https
+httpurl
 
 init
 initializer
 inout
+ios
+ipados
+ipsum
 iterable
 
+jpeg
+jpg
 json
 
 keychain
 
 let
 lhs
+lorem
 lowercased
 
 mmm
 mmmm
+multiline
+
+noop
+ns
 nsurl
+
+objc
 
 passthrough
 plist
+pn
 
 rect
+representable
 resizable
 responder
 rhs
 
+sendable
+spm
 struct
+subdirectory
 subheadline
 substring
 subview
 subviews
+superclass
 superview
 swift
 
+tappable
 teardown
+tencent
+todo
+ttl
 typealias
 
 ui
+uikit
+un
+uname
+unowned
 unregister
+unregisters
 uppercased
+uptime
+uri
 url
 utc
 utf
+utsname
+uuid
 
 var
+vimeo
+
+weibo
+whitespace
+www
 
 xc
 xcode

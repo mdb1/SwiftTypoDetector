@@ -29,7 +29,12 @@ end
 def looks_like_regex_or_special_format?(line)
   special_chars = ['[', ']', '{', '}', '+', '*', '\\']
   special_chars_count = special_chars.map { |char| line.count(char) }.sum
-  special_chars_count > 4  # This is arbitrary; adjust as you see fit
+  special_chars_count > 10  # This is arbitrary; adjust as you see fit
+end
+
+def contains_many_numbers?(line, threshold = 7)
+  num_count = line.scan(/\d/).count
+  return num_count >= threshold
 end
 
 $typo_count = 0
@@ -37,21 +42,26 @@ $typo_count = 0
 # Search for typos in a file
 def search_typos(file_path, speller, learned_words, swift_words)
   File.foreach(file_path).with_index do |line, line_num|
-    # Skip URLs
-    return if line.match?(/https?:\/\/[\S]+/)
+    # Remove single-line URLs from the line
+    next if line.include?("http://")
+    next if line.include?("https://")
 
-    # Skip long alphanumeric strings
-    return if line.match?(/[a-zA-Z0-9_]{20,}/)
+    # Remove UUIDs from the line
+    line.gsub!(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/, "")
+
+    # Skip if the line contains many numbers (probably an id)
+    next if contains_many_numbers?(line)
 
     # Skip line if it looks like a regex or special format
-    return if looks_like_regex_or_special_format?(line)
+    next if looks_like_regex_or_special_format?(line)
 
-    # Handle sequences of uppercase letters in camelCased words
+    # Handle sequences of uppercase letters in camelCased words in line
     line.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1 \2')
-    
-    # Split camelCased words
+
+    # Split camelCased words in line
     line.gsub!(/([a-z\d])([A-Z])/,'\1 \2')
 
+    # Finally, process the words in line
     words = line.gsub(/[^a-zA-Z\s’']/, ' ').split
 
     words.each do |word|
