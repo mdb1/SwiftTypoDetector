@@ -42,6 +42,7 @@ end
 $typo_count = 0
 $unlearned_words = {}
 $unlearned_words_count = Hash.new(0)
+$typo_with_lines = {}
 
 # Search for typos in a file
 def search_typos(file_path, speller, learned_words, swift_words)
@@ -79,12 +80,15 @@ def search_typos(file_path, speller, learned_words, swift_words)
         parts = root_word.split("'")
         next if parts.all? { |part| speller.correct?(part) || learned_words.include?(part.downcase) || swift_words.include?(part.downcase) }
       end
-      puts "#{file_path}:\nline #{line_num + 1}: #{word}. Typo detected: \"#{word}\""
+      typo_line = "#{file_path}:\nline #{line_num + 1}: #{word}. Typo detected: \"#{word}\""
+      puts typo_line
       # Increment typo count whenever you find a typo
       # Update global variables for unlearned words
       $unlearned_words[word.downcase] = true
       $unlearned_words_count[word.downcase] += 1
       $typo_count += 1
+      $typo_with_lines[word] ||= []
+      $typo_with_lines[word] << typo_line
     end
   end
 end
@@ -126,13 +130,24 @@ if $typo_count > 0
     end
   end
 
+  typos_with_lines_path = File.join(project_path, "typos_with_lines.txt")
+  # Write typos_with_lines.txt
+  File.open(typos_with_lines_path, "w") do |file|
+    $typo_with_lines.each do |word, lines|
+      file.puts("## #{word}")
+      lines.each { |line| file.puts(line) }
+      file.puts
+    end
+  end
+
   puts "Two files have been created in the root of your project path (#{project_path}):"
   puts "1. unlearned_words.txt - This file contains all the unique typos, sorted alphabetically."
   puts "2. unlearned_words_count.txt - This file contains the typos under their frequencies, sorted by frequency."
+  puts "3. typos_with_lines.txt: Contains typos along with the lines in the code where they were found."
   puts "Remember to delete these files before pushing to the repository."
 else
   # Delete the files if they exist
-  [File.join(project_path, 'unlearned_words.txt'), File.join(project_path, 'unlearned_words_count.txt')].each do |file_path|
+  [File.join(project_path, 'unlearned_words.txt'), File.join(project_path, 'unlearned_words_count.txt'), File.join(project_path, 'typos_with_lines.txt')].each do |file_path|
     File.delete(file_path) if File.exist?(file_path)
   end
 
