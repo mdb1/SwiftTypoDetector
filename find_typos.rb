@@ -46,14 +46,23 @@ $typo_with_lines = {}
 
 # Search for typos in a file
 def search_typos(file_path, speller, learned_words, swift_words)
+  inside_multiline_string = false
   File.foreach(file_path, encoding: "UTF-8").with_index do |line, line_num|
+    if line.strip == '"""'
+      inside_multiline_string = !inside_multiline_string
+      next
+    end
+
+    next if inside_multiline_string
+
     line = line.scrub
     # Remove single-line URLs from the line
     next if line.include?("http://")
     next if line.include?("https://")
 
-    # Remove UUIDs from the line
+    # Remove UUIDs and potential IDs from the line
     line.gsub!(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/, "")
+    line.gsub!(/[a-zA-Z0-9]{20,}/, "")
 
     # Skip if the line contains many numbers (probably an id)
     next if contains_many_numbers?(line)
